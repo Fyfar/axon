@@ -6,7 +6,15 @@
 
     <groupId>com.hnyp</groupId>
     <artifactId>axon-test</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>vport-command</module>
+        <module>vport-query</module>
+        <module>vport-rest</module>
+        <module>connection-service</module>
+    </modules>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -14,78 +22,79 @@
         <version>2.0.3.RELEASE</version>
     </parent>
 
-    <dependencies>
+    <dependencyManagement>
+        <dependencies>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <version>2.0.3.RELEASE</version>
-            <!--<exclusions>-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>2.0.3.RELEASE</version>
+                <!--<exclusions>-->
                 <!--<exclusion>-->
-                    <!--<groupId>org.springframework.boot</groupId>-->
-                    <!--<artifactId>spring-boot-starter-logging</artifactId>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-starter-logging</artifactId>-->
                 <!--</exclusion>-->
-            <!--</exclusions>-->
-        </dependency>
+                <!--</exclusions>-->
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.0.3.RELEASE</version>
-        </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>2.0.3.RELEASE</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-            <version>2.0.3.RELEASE</version>
-        </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>2.0.3.RELEASE</version>
+            </dependency>
 
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+            </dependency>
 
-        <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-core</artifactId>
-            <version>3.3.1</version>
-        </dependency>
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-core</artifactId>
+                <version>3.3.1</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-spring</artifactId>
-            <version>3.3.1</version>
-        </dependency>
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-spring</artifactId>
+                <version>3.3.1</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.0</version>
-            <scope>provided</scope>
-        </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.0</version>
+                <scope>provided</scope>
+            </dependency>
 
-        <!--<dependency>-->
+            <!--<dependency>-->
             <!--<groupId>org.springframework.boot</groupId>-->
             <!--<artifactId>spring-boot-starter-log4j2</artifactId>-->
-        <!--</dependency>-->
+            <!--</dependency>-->
 
-        <!--<dependency>-->
+            <!--<dependency>-->
             <!--<groupId>org.apache.logging.log4j</groupId>-->
             <!--<artifactId>log4j-api</artifactId>-->
-        <!--</dependency>-->
+            <!--</dependency>-->
 
-        <!--<dependency>-->
+            <!--<dependency>-->
             <!--<groupId>org.apache.logging.log4j</groupId>-->
             <!--<artifactId>log4j-core</artifactId>-->
-        <!--</dependency>-->
+            <!--</dependency>-->
 
-        <!--<dependency>-->
+            <!--<dependency>-->
             <!--<groupId>org.apache.logging.log4j</groupId>-->
             <!--<artifactId>log4j-to-slf4j</artifactId>-->
-        <!--</dependency>-->
+            <!--</dependency>-->
 
-
-    </dependencies>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
