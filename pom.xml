@@ -10,8 +10,10 @@
     <version>1.0-SNAPSHOT</version>
 
     <modules>
-        <module>vport-rest</module>
+        <module>vport-service</module>
         <module>connection-service</module>
+        <module>query-service</module>
+        <module>api</module>
     </modules>
 
     <parent>
@@ -19,6 +21,10 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.3.RELEASE</version>
     </parent>
+
+    <properties>
+        <axon.version>3.2.2</axon.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -42,20 +48,33 @@
             </dependency>
 
             <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>2.0.3.RELEASE</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-spring-boot-starter</artifactId>
+                <version>${axon.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.axonframework</groupId>
                 <artifactId>axon-core</artifactId>
-                <version>3.3.1</version>
+                <version>${axon.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>org.axonframework</groupId>
                 <artifactId>axon-spring</artifactId>
-                <version>3.3.1</version>
+                <version>${axon.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.axonframework</groupId>
+                <artifactId>axon-amqp</artifactId>
+                <version>${axon.version}</version>
             </dependency>
 
             <dependency>

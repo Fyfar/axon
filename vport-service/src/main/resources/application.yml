@@ -1,0 +1,13 @@
+spring:
+  rabbitmq:
+    user: guest
+    password: guest
+    host: ${RABBITMQ_HOST:127.0.0.1}
+    port: 5672
+
+axon:
+  amqp:
+    exchange: VportEvents
+
+logging.level.org.axonframework: DEBUG
+logging.level.org.hibernate: ERROR
