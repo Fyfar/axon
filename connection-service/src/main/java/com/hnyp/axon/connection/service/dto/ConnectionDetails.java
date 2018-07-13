@@ -1,4 +1,4 @@
-package com.hnyp.axon.connection.service.models;
+package com.hnyp.axon.connection.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

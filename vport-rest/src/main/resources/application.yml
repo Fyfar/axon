@@ -1,0 +1,2 @@
+logging.level.org.axonframework: DEBUG
+logging.level.org.hibernate: ERROR
