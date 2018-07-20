@@ -1,4 +1,4 @@
-package com.hnyp.axon.query;
+package com.hnyp.axon;
 
 import com.rabbitmq.client.Channel;
 import org.axonframework.amqp.eventhandling.DefaultAMQPMessageConverter;

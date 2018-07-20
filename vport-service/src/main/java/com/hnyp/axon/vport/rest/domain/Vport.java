@@ -1,5 +1,7 @@
 package com.hnyp.axon.vport.rest.domain;
 
+import static java.util.UUID.randomUUID;
+
 import com.hnyp.axon.api.event.VportCreatedEvent;
 import com.hnyp.axon.vport.rest.commands.CreateVportCommand;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,6 @@ import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-
-import static java.util.UUID.randomUUID;
 
 @Slf4j
 @NoArgsConstructor
@@ -35,13 +35,13 @@ public class Vport {
         log.info("CreateVportCommand, triggering VportCreatedEvent");
         AggregateLifecycle.apply(new VportCreatedEvent(randomUUID().toString(),
                 command.getName(),
-                command.getDescription())
-        );
+                command.getDescription()));
     }
 
     @EventSourcingHandler
     public void on(VportCreatedEvent event) {
-        log.info("VportCreatedEvent fired in aggregate");
+        log.info("Creating generic VPort...");
+
         this.id = event.getVportId();
         this.name = event.getDescription();
         this.state = State.DEPLOYING;
