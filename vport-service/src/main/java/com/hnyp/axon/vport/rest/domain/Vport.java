@@ -48,7 +48,7 @@ public class Vport {
         log.info("UpdateVportStatusCommand, triggering VportUpdateStatus");
         log.info("UpdateVportStatusCommand vportId is: {}", command.getVportId());
 
-        AggregateLifecycle.apply(new VportUpdateStatus(randomUUID().toString(),
+        AggregateLifecycle.apply(new VportUpdateStatus(command.getVportId(),
                 command.getVportName(),
                 "",
                 command.getState()));
