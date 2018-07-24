@@ -38,6 +38,12 @@
             <artifactId>h2</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.hnyp</groupId>
+            <artifactId>api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
     </dependencies>
 
 

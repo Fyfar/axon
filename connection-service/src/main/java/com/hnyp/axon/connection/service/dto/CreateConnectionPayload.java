@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CreateConnectionPayload {
 
+    private String vportId;
     private String name;
 
 }

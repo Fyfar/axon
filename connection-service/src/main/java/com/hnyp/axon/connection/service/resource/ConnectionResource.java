@@ -2,22 +2,24 @@ package com.hnyp.axon.connection.service.resource;
 
 import static java.util.UUID.randomUUID;
 
+import com.hnyp.axon.api.entity.State;
 import com.hnyp.axon.connection.service.dto.ConnectionDetails;
 import com.hnyp.axon.connection.service.dto.CreateConnectionPayload;
 import com.hnyp.axon.connection.service.entity.Connection;
-import com.hnyp.axon.connection.service.entity.ConnectionState;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/connection")
@@ -31,8 +33,9 @@ public class ConnectionResource {
     public String create(@RequestBody CreateConnectionPayload payload) {
         Connection connection = new Connection();
         connection.setId(randomUUID().toString());
+        connection.setVportId(payload.getVportId());
         connection.setName(payload.getName());
-        connection.setState(ConnectionState.PROVISIONING);
+        connection.setState(State.DEPLOYING);
 
         em.persist(connection);
 
@@ -54,6 +57,7 @@ public class ConnectionResource {
         if (result != null && !result.isEmpty()) {
             Connection connection = result.get(0);
             return ResponseEntity.ok(new ConnectionDetails(connection.getId(),
+                    connection.getVportId(),
                     connection.getName(),
                     connection.getState().toString())
             );

@@ -25,8 +25,8 @@ public class ConnectionServiceClient {
     private RestTemplate rest;
 
     @SneakyThrows
-    public void createVportRecord(String vportName) {
-        String json = "{\"name\": \"" + vportName + "\"}";
+    public void createVportRecord(String vportId, String vportName) {
+        String json = "{\"vportId\": \"" + vportId + "\", \"name\": \"" + vportName + "\"}";
         HttpEntity<String> entity = new HttpEntity<>(json, getJsonHeaders());
 
         log.info("Sending request to connection-service for creating vport record in DB");

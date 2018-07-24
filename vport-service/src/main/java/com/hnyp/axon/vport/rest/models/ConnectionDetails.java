@@ -11,6 +11,8 @@ public class ConnectionDetails {
 
     private String id;
 
+    private String vportId;
+
     private String name;
 
     private String status;

@@ -22,7 +22,7 @@ class VportEventHandler {
         log.info("Vport created event, vport id = {}", event.getVportId());
         log.info("Save into DB, vport id = {}", event.getVportId());
 
-        client.createVportRecord(event.getName());
+        client.createVportRecord(event.getVportId(), event.getName());
         // todo create read model and save it
     }
 

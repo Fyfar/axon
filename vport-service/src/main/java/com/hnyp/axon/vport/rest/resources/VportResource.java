@@ -1,7 +1,9 @@
 package com.hnyp.axon.vport.rest.resources;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hnyp.axon.vport.rest.commands.CreateVportCommand;
+import com.hnyp.axon.api.command.CreateVportCommand;
+import com.hnyp.axon.api.command.UpdateVportStatusCommand;
+import com.hnyp.axon.api.entity.State;
 import com.hnyp.axon.vport.rest.models.ConnectionDetails;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -42,7 +44,15 @@ public class VportResource {
     @GetMapping("/{vportName}")
     @ResponseBody
     public ConnectionDetails get(@PathVariable String vportName) {
-        return sendGet(vportName);
+        ConnectionDetails connectionDetails = sendGet(vportName);
+        log.info("ConnectionDetails response: {}", connectionDetails);
+        log.info("VportId for updating is: {}", connectionDetails.getVportId());
+
+        commandGateway.send(new UpdateVportStatusCommand(connectionDetails.getVportId(),
+                vportName,
+                State.valueOf(connectionDetails.getStatus())));
+
+        return connectionDetails;
     }
 
     @SneakyThrows

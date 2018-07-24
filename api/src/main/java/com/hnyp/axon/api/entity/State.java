@@ -1,4 +1,4 @@
-package com.hnyp.axon.vport.rest.domain;
+package com.hnyp.axon.api.entity;
 
 public enum State {
 
