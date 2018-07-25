@@ -16,11 +16,13 @@ import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.io.Serializable;
+
 @Slf4j
 @NoArgsConstructor
 @Aggregate
 @ToString
-public class Vport {
+public class Vport implements Serializable {
 
     @AggregateIdentifier
     private String id;
