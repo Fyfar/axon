@@ -61,7 +61,6 @@ public class Vport implements Serializable {
     @EventSourcingHandler
     public void on(VportCreatedEvent event) {
         log.info("Creating generic VPort...");
-        log.info("VportCreatedEvent is: {}", event);
 
         this.id = event.getVportId();
         this.name = event.getDescription();
