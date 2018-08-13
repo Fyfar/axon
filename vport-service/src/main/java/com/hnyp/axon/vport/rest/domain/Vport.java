@@ -6,6 +6,7 @@ import com.hnyp.axon.api.command.CreateVportCommand;
 import com.hnyp.axon.api.command.UpdateVportStatusCommand;
 import com.hnyp.axon.api.entity.State;
 import com.hnyp.axon.api.event.VportCreatedEvent;
+import com.hnyp.axon.api.event.VportDeployFailedEvent;
 import com.hnyp.axon.api.event.VportUpdateStatus;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -14,6 +15,7 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.messaging.unitofwork.CurrentUnitOfWork;
 import org.axonframework.spring.stereotype.Aggregate;
 
 import java.io.Serializable;
@@ -40,9 +42,21 @@ public class Vport implements Serializable {
     @CommandHandler
     public Vport(CreateVportCommand command) {
         log.info("CreateVportCommand, triggering VportCreatedEvent");
-        AggregateLifecycle.apply(new VportCreatedEvent(randomUUID().toString(),
+        VportCreatedEvent event = new VportCreatedEvent(randomUUID().toString(),
                 command.getName(),
-                command.getDescription()));
+                command.getDescription());
+        AggregateLifecycle.apply(event);
+
+        CurrentUnitOfWork.get().onRollback((it) -> compensateEvent(event.getVportId(), event.getName(),
+                event.getDescription()));
+
+        if (command.getName().equals("2")) {
+            log.info("=== Simulating compensation ===");
+            AggregateLifecycle.apply(new VportDeployFailedEvent(event.getVportId(), event.getName(),
+                    event.getDescription()));
+        }
+
+        if (command.getName().equals("1")) throw new RuntimeException("Some error");
     }
 
     @CommandHandler
@@ -77,6 +91,11 @@ public class Vport implements Serializable {
         this.state = event.getState();
 
         log.info("Vport after status updating: {}", this);
+    }
+
+    private void compensateEvent(String id, String name, String description) {
+        log.info("=== Rollback event was thrown ===");
+        AggregateLifecycle.apply(new VportDeployFailedEvent(id, name, description));
     }
 
 }

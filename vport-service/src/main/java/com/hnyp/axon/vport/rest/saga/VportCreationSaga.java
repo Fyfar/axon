@@ -2,6 +2,7 @@ package com.hnyp.axon.vport.rest.saga;
 
 import com.hnyp.axon.api.entity.State;
 import com.hnyp.axon.api.event.VportCreatedEvent;
+import com.hnyp.axon.api.event.VportDeployFailedEvent;
 import com.hnyp.axon.api.event.VportUpdateStatus;
 import com.hnyp.axon.vport.rest.domain.BaseVport;
 import com.hnyp.axon.vport.rest.repositories.VportRepository;
@@ -66,6 +67,13 @@ public class VportCreationSaga implements Serializable {
 
         UnitOfWork<?> unitOfWork = CurrentUnitOfWork.get();
         log.info("Unit of work phase after saga ends: {}", unitOfWork.phase().name());
+    }
+
+    @SagaEventHandler(associationProperty = "vportId")
+    public void on(VportDeployFailedEvent event) {
+        log.info("Compensation action was performed...");
+        log.info("Remove vport from DB");
+        log.info("Call EIS to undeploy vport");
     }
 
     public boolean isSagaIsActive() {
